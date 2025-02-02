@@ -9,13 +9,14 @@ on:
       - release
 
 jobs:
-  build_and_deploy:
+  deploy:
     runs-on: ubuntu-latest
-
-    environment: staging-env
+    permissions:
+      id-token: write
+      pages: write
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -26,8 +27,13 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Project
+      - name: Build static website
         run: npm run build
 
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
       - name: Deploy to Staging
-        run: echo "Deploying to Staging Environment"
+        uses: actions/deploy-pages@v4
