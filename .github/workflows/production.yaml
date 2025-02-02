@@ -9,13 +9,14 @@ on:
       - production
 
 jobs:
-  final_tests_and_deploy:
+  deploy:
     runs-on: ubuntu-latest
-
-    environment: production-env
+    permissions:
+      id-token: write
+      pages: write
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -29,8 +30,13 @@ jobs:
       - name: Run Linting
         run: npm run lint
 
-      - name: Build Project
+      - name: Build static website
         run: npm run build
 
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
       - name: Deploy to Production
-        run: echo "Deploying to Production Environment (Manual Approval Required)"
+        uses: actions/deploy-pages@v4
