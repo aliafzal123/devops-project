@@ -1,0 +1,36 @@
+name: Production Deployment
+
+on:
+  pull_request:
+    branches:
+      - production
+  push:
+    branches:
+      - production
+
+jobs:
+  final_tests_and_deploy:
+    runs-on: ubuntu-latest
+
+    environment: production-env
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Build Project
+        run: npm run build
+
+      - name: Deploy to Production
+        run: echo "Deploying to Production Environment (Manual Approval Required)"
