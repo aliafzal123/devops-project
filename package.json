@@ -1,16 +1,14 @@
 {
+  "name": "your-project-name",
+  "version": "1.0.0",
   "scripts": {
     "lint": "eslint ."
   },
-  "name": "term-project"
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  }
 }
 
-{
-  "name": "term-project-f24",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/imranucp/term-project-f24.git"
