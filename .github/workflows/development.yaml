@@ -4,31 +4,31 @@ on:
   pull_request:
     branches:
       - develop
-  push:
-    branches:
-      - develop
 
 jobs:
-  lint_and_build:
+  linting:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
+      - name: Install dependencies
+        run: npm install -g htmlhint stylelint
+
+      - name: Lint HTML
+        run: htmlhint "src/**/*.html"
+
+      - name: Lint CSS
+        run: stylelint "styles/**/*.css"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: npm install parcel    
+        run: npm install parcel
 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Lint Code
-        run: npm run lint
-
-      - name: Build Project
-        run: npm run build
+      - name: Build project
+        run: npx parcel build src/index.html
