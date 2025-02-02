@@ -1,8 +1,10 @@
 {
   "scripts": {
     "lint": "eslint ."
-  }
+  },
+  "name": "term-project"
 }
+
 {
   "name": "term-project-f24",
   "version": "1.0.0",
